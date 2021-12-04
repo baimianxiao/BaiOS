@@ -219,7 +219,8 @@ class BaiApi:
         requests.post(self.url + post_road, headers=self.headers)
 
     def upload_group_file(self, group_id, file, name, folder):
-        """上传群文件\n在不提供 folder 参数的情况下默认上传到根目录\n只能上传本地文件, 需要上传 http 文件的话请先调用 download_file API下载"""
+        r"""上传群文件
+        在不提供 folder 参数的情况下默认上传到根目录，只能上传本地文件, 需要上传 http 文件的话请先调用 download_file API下载"""
         post_road = "upload_group_file"
         data = json.dumps({"group_id": group_id, "file": file, "name": name, "folder": folder})
         requests.post(self.url + post_road, data=data, headers=self.headers)
@@ -233,13 +234,13 @@ class BaiApi:
 
     def send_group_notice(self, group_id, content):
         r"""获取群文件系统信息
+        
             :param group_id:群号
             :param content:公告内容
             """
         post_road = "_send_group_notice"
         data = json.dumps({"group_id": group_id, "content": content})
         requests.post(self.url + post_road, data=data, headers=self.headers)
-
 
 if __name__ == "__main__":
     test = BaiApi()
