@@ -1,0 +1,6 @@
+[2021-12-04 22:56:28] [WARNING]: 虚拟设备信息不存在, 将自动生成随机设备. 
+[2021-12-04 22:56:34] [WARNING]: 账号已开启设备锁，请选择验证方式: 
+[2021-12-04 22:56:34] [WARNING]: 1. 向手机 189******83 发送短信验证码 
+[2021-12-04 22:56:34] [WARNING]: 2. 使用手机QQ扫码验证. 
+[2021-12-04 22:56:34] [WARNING]: 请输入(1 - 2) (将在10秒后自动选择2)： 
+[2021-12-04 22:56:38] [WARNING]: 账号已开启设备锁，请前往 -> https://ti.qq.com/safe/verify?_wv=2&_wwv=128&envfrom=device-lock&uin=2127114208&sig=w2pk9cc%2F6R3L%2BuMMZgfFUPl7LY%2FjikaapZCfLvSPoEkxjUhrHdeQEK1JR4TvHpAJd8%2FGazP9TsuVBf4GmEI%2BzIqdMMB8FnBgVwjg57U9ftUDdBIlLD7yAxati7CgpAYq <- 验证后重启Bot. 
