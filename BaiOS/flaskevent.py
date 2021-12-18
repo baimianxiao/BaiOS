@@ -9,21 +9,13 @@ app = Flask(__name__)
 def cqhttp_post():
     data = request.get_data()
     json_data = json.loads(data.decode('utf-8'))
-    shortcut_do=event_itemize(json_data)
-    return shortcut_do
+    event_itemize(json_data)
+    return "shortcut_do"
 
 
 def event_itemize(json_data):
-  if '' in json_data:
-    
-  elif '' in json_data:
-    
-  elif '' in json_data:
-    
-  else:
-    return ''
-  
-  return shortcut_do
+    if 'message_type' in json_data:
+        print(json_data['user_id'])
 
 
 if __name__ == "__main__":

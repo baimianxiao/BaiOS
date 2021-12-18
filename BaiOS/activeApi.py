@@ -233,14 +233,16 @@ class BaiApi:
         return return_message.text
 
     def send_group_notice(self, group_id, content):
-        r"""获取群文件系统信息
-        
-            :param group_id:群号
-            :param content:公告内容
-            """
+        r"""Sends a POST request.
+
+        :param group_id: 指定发送群号
+        :param content: 公告内容
+        :rtype: text
+        """
         post_road = "_send_group_notice"
         data = json.dumps({"group_id": group_id, "content": content})
         requests.post(self.url + post_road, data=data, headers=self.headers)
+
 
 if __name__ == "__main__":
     test = BaiApi()
