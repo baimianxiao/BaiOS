@@ -4,20 +4,6 @@ import subprocess
 import os
 
 
-class start:
-    def __init__(self, bot_data_arr, title='BaiOS'):
-        self.title = title
-        self.bot_data_arr = bot_data_arr
-
-    def startgocqhttp(self):
-        while True:
-            subprocess.call(
-                'start cmd /K "title BaiOS' + self.title + '|..\\..\\lib\\go-cqhttp.exe faststart"',
-                shell=True,
-                cwd='.\\conf\\gocqhttp\\' + str(self.bot_data_arr['uin'])
-            )
-
-
 class loadConfig(object):
     def __init__(self, bot_data_arr):
         self.config_file_str = ''
@@ -58,7 +44,7 @@ class loadConfig(object):
             "\n"
             "default-middlewares: &default\n"
             "  access-token: ''\n"
-            "  filter: '../filter.json'\n"
+            "  filter: ''\n"
             "  rate-limit:\n"
             "    enabled: false\n"
             "    frequency: 1\n"
@@ -87,8 +73,27 @@ class loadConfig(object):
         self.config_file_format['servers-post-url'] = str(self.bot_data_arr['servers']['post'])
 
         self.config_file_str = self.config_file_str.format(**self.config_file_format)
-        print(self.config_file_str)
         if not os.path.exists('./conf/gocqhttp/' + str(self.bot_data_arr['uin'])):
             os.makedirs('./conf/gocqhttp/' + str(self.bot_data_arr['uin']))
         with open('./conf/gocqhttp/' + str(self.bot_data_arr['uin']) + '/config.yml', 'w+') as tmp:
             tmp.write(self.config_file_str)
+
+
+class start:
+    def __init__(self, bot_data_arr, title='BaiOS'):
+        self.title = title
+        self.bot_data_arr = bot_data_arr
+
+    def start(self):
+        os.system('.\\lib\\go-cqhttp.exe faststart')
+
+    def startgocqhttp(self):
+        start = True
+        CWD = '.\\conf\\gocqhttp\\' + str(self.bot_data_arr['uin']) + '\\'
+        while start:
+            subprocess.call(
+                'start cmd /K "title BaiOS' + self.title + '|..\\..\\lib\\go-cqhttp.exe faststart"',
+                shell=True,
+                cwd=CWD
+            )
+            start = False

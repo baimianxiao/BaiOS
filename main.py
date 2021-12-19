@@ -20,7 +20,7 @@ print('已创建gocqhttp配置文件\n三秒后启动gocqhttp')
 time.sleep(5)
 print('尝试启动gocqhttp')
 try:
-    BaiOS.firststart.start(bot_data_arr).startgocqhttp()
+    BaiOS.firststart.start(bot_data_arr).start()
     print('启动成功！')
 except:
     print('启动失败！')
