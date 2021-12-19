@@ -5,24 +5,24 @@ import os
 
 
 class start:
-    def __init__(self, title):
+    def __init__(self, bot_data_arr, title='BaiOS'):
         self.title = title
+        self.bot_data_arr = bot_data_arr
 
-    def rungocqhttp(self):
+    def startgocqhttp(self):
         while True:
             subprocess.call(
-                'start cmd /K "title ' + self.title + '|..\\..\\lib\\go-cqhttp.exe faststart"',
+                'start cmd /K "title BaiOS' + self.title + '|..\\..\\lib\\go-cqhttp.exe faststart"',
                 shell=True,
-                cwd='.\\conf\\gocqhttp\\'
+                cwd='.\\conf\\gocqhttp\\' + str(self.bot_data_arr['uin'])
             )
 
 
-class goTypeConfig(object):
-    def __init__(self, bot_info_dict, target_proc):
-        self.bot_info_dict = bot_info_dict
-        self.target_proc = target_proc
+class loadConfig(object):
+    def __init__(self, bot_data_arr):
         self.config_file_str = ''
         self.config_file_format = {}
+        self.bot_data_arr = bot_data_arr
 
     def setConfig(self):
         self.config_file_str = (
@@ -57,7 +57,7 @@ class goTypeConfig(object):
             "  debug: false\n"
             "\n"
             "default-middlewares: &default\n"
-            "  access-token: '{access-token}'\n"
+            "  access-token: ''\n"
             "  filter: '../filter.json'\n"
             "  rate-limit:\n"
             "    enabled: false\n"
@@ -80,20 +80,15 @@ class goTypeConfig(object):
             "    enable: true\n"
         )
 
-        self.config_file_format['uin'] = str(self.bot_info_dict.id)
-        self.config_file_format['password'] = self.bot_info_dict.password
-        self.config_file_format['access-token'] = self.bot_info_dict.post_info.access_token
-        self.config_file_format['servers-host'] = '127.0.0.1'
-        self.config_file_format['servers-port'] = str(self.bot_info_dict.post_info.port)
-        self.config_file_format['servers-post-url'] = 'http://127.0.0.1:' + str(
-            self.target_proc['server']['port']) + '/OlivOSMsgApi/qq/onebot/gocqhttp'
+        self.config_file_format['uin'] = str(self.bot_data_arr['uin'])
+        self.config_file_format['password'] = self.bot_data_arr['password']
+        self.config_file_format['servers-host'] = self.bot_data_arr['servers']['host']
+        self.config_file_format['servers-port'] = str(self.bot_data_arr['servers']['port'])
+        self.config_file_format['servers-post-url'] = str(self.bot_data_arr['servers']['post'])
 
         self.config_file_str = self.config_file_str.format(**self.config_file_format)
-
-        with open('./conf/gocqhttp/' + self.bot_info_dict.hash + '/config.yml', 'w+') as tmp:
+        print(self.config_file_str)
+        if not os.path.exists('./conf/gocqhttp/' + str(self.bot_data_arr['uin'])):
+            os.makedirs('./conf/gocqhttp/' + str(self.bot_data_arr['uin']))
+        with open('./conf/gocqhttp/' + str(self.bot_data_arr['uin']) + '/config.yml', 'w+') as tmp:
             tmp.write(self.config_file_str)
-
-
-def releaseDir(dir_path):
-    if not os.path.exists(dir_path):
-        os.makedirs(dir_path)

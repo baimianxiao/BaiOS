@@ -6,9 +6,10 @@ import requests
 class BaiApi:
     """go_cqhttp主动Api"""
 
-    def __init__(self, host="http://127.0.0.1:", port=5700):
+    def __init__(self, bot_data_arr):
+        servers = bot_data_arr['servers']
         self.headers = {'Content-Type': 'application/json'}
-        self.url = host + str(port) + "/"
+        self.url = "http://" + servers['host'] + str(servers['port']) + "/"
 
     def send_private_msg(self, user_id, group_id, message, auto_escape=None):
         """发送私聊消息"""
@@ -233,18 +234,12 @@ class BaiApi:
         return return_message.text
 
     def send_group_notice(self, group_id, content):
-        r"""Sends a POST request.
+        r"""向指定群聊发送公告
 
         :param group_id: 指定发送群号
         :param content: 公告内容
-        :rtype: text
+        :rtype: None
         """
         post_road = "_send_group_notice"
         data = json.dumps({"group_id": group_id, "content": content})
         requests.post(self.url + post_road, data=data, headers=self.headers)
-
-
-if __name__ == "__main__":
-    test = BaiApi()
-
-    test.send_group_notice('822417015', "测试试一试bot可不可以发公告")
